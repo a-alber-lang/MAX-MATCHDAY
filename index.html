@@ -190,5 +190,57 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 }
 </script>
+<script>
+async function ladeSpielerPlusTermine() {
+  try {
+    const response = await fetch(
+      "https://max-matchday-calendar.a-alber.workers.dev/"
+    );
+
+    if (!response.ok) {
+      throw new Error("SpielerPlus konnte nicht geladen werden");
+    }
+
+    const data = await response.json();
+
+    if (!data.success || !Array.isArray(data.events)) {
+      throw new Error("Keine gültigen Termine erhalten");
+    }
+
+    // Nur Termine ab heute
+    const heute = new Date();
+    heute.setHours(0, 0, 0, 0);
+
+    const kommendeTermine = data.events
+      .map(event => {
+        const wert = event.start;
+
+        const jahr = Number(wert.slice(0, 4));
+        const monat = Number(wert.slice(4, 6)) - 1;
+        const tag = Number(wert.slice(6, 8));
+        const stunde = Number(wert.slice(9, 11) || 0);
+        const minute = Number(wert.slice(11, 13) || 0);
+
+        return {
+          ...event,
+          datum: new Date(jahr, monat, tag, stunde, minute)
+        };
+      })
+      .filter(event => event.datum >= heute)
+      .sort((a, b) => a.datum - b.datum);
+
+    console.log("SpielerPlus verbunden ✅");
+    console.log("Kommende Termine:", kommendeTermine);
+
+    // Für die nächsten Schritte global verfügbar machen
+    window.spielerPlusTermine = kommendeTermine;
+
+  } catch (error) {
+    console.error("SpielerPlus-Fehler:", error);
+  }
+}
+
+ladeSpielerPlusTermine();
+</script>
 </body>
 </html>
