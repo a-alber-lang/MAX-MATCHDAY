@@ -8,394 +8,1445 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+
 <style>
-:root{--bg:#0b1410;--card:#142119;--card2:#1b2b21;--green:#b9ff3d;--text:#f7faf7;--muted:#aebbb1;--line:#314238;--warn:#ffd166}
-*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#08110d,#132219);color:var(--text)}
-.wrap{max-width:760px;margin:auto;padding:18px 14px 60px}.hero{padding:16px 4px 8px}.kicker{color:var(--green);font-weight:900;letter-spacing:.14em;font-size:12px}
-h1{font-size:34px;margin:4px 0 2px;line-height:1} .sub{color:var(--muted);margin:8px 0 16px}
-.card{background:rgba(20,33,25,.96);border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 10px 30px #0004}
-h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.full{grid-column:1/-1}
-label{display:block;color:var(--muted);font-size:12px;font-weight:700;margin:0 0 5px}
-input,select{width:100%;background:#0e1913;color:white;border:1px solid #405347;border-radius:12px;padding:12px;font:inherit}
-button{border:0;border-radius:14px;padding:14px 16px;font-weight:900;font-size:16px;cursor:pointer}
-.primary{width:100%;background:var(--green);color:#102000;margin-top:8px}.ghost{background:#26372c;color:white;font-size:13px;padding:9px 12px}
-.timeline{position:relative;margin-top:4px}.item{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
-.time{font-size:17px;font-weight:900;color:var(--green)}.what{font-weight:850}.detail{color:var(--muted);font-size:13px;margin-top:3px;line-height:1.35}
-.badge{display:inline-block;background:#26372c;color:#dce7df;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;margin:3px 4px 3px 0}
-.note{border-left:3px solid var(--warn);padding-left:10px;color:#e9e1c9;font-size:13px;line-height:1.4}
-.goals input{margin:5px 0}.footer{text-align:center;color:#75847a;font-size:11px;margin-top:20px}
-.hide{display:none}@media(max-width:560px){.grid{grid-template-columns:1fr}.full{grid-column:auto}h1{font-size:30px}}
-@media print{body{background:white;color:black}.wrap{max-width:none}.card{box-shadow:none;border:1px solid #bbb;background:white;color:black}.hero .sub,.detail,label,.footer{color:#555}.time,.kicker{color:#235d2f}input,select{color:black;background:white}.primary,.ghost{display:none}.card{break-inside:avoid}}
+:root{
+  --bg:#0b1410;
+  --card:#142119;
+  --card2:#1b2b21;
+  --green:#b9ff3d;
+  --text:#f7faf7;
+  --muted:#aebbb1;
+  --line:#314238;
+  --warn:#ffd166
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:linear-gradient(160deg,#08110d,#132219);
+  color:var(--text)
+}
+
+.wrap{
+  max-width:760px;
+  margin:auto;
+  padding:18px 14px 60px
+}
+
+.hero{
+  padding:16px 4px 8px
+}
+
+.kicker{
+  color:var(--green);
+  font-weight:900;
+  letter-spacing:.14em;
+  font-size:12px
+}
+
+h1{
+  font-size:34px;
+  margin:4px 0 2px;
+  line-height:1
+}
+
+.sub{
+  color:var(--muted);
+  margin:8px 0 16px
+}
+
+.card{
+  background:rgba(20,33,25,.96);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:16px;
+  margin:12px 0;
+  box-shadow:0 10px 30px #0004
+}
+
+h2{
+  font-size:17px;
+  margin:0 0 12px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px
+}
+
+.full{
+  grid-column:1/-1
+}
+
+label{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  margin:0 0 5px
+}
+
+input,select{
+  width:100%;
+  background:#0e1913;
+  color:white;
+  border:1px solid #405347;
+  border-radius:12px;
+  padding:12px;
+  font:inherit
+}
+
+button{
+  border:0;
+  border-radius:14px;
+  padding:14px 16px;
+  font-weight:900;
+  font-size:16px;
+  cursor:pointer
+}
+
+.primary{
+  width:100%;
+  background:var(--green);
+  color:#102000;
+  margin-top:8px
+}
+
+.ghost{
+  background:#26372c;
+  color:white;
+  font-size:13px;
+  padding:9px 12px
+}
+
+.timeline{
+  position:relative;
+  margin-top:4px
+}
+
+.item{
+  display:grid;
+  grid-template-columns:72px 1fr;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line)
+}
+
+.time{
+  font-size:17px;
+  font-weight:900;
+  color:var(--green)
+}
+
+.what{
+  font-weight:850
+}
+
+.detail{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:3px;
+  line-height:1.35
+}
+
+.badge{
+  display:inline-block;
+  background:#26372c;
+  color:#dce7df;
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:11px;
+  font-weight:800;
+  margin:3px 4px 3px 0
+}
+
+.note{
+  border-left:3px solid var(--warn);
+  padding-left:10px;
+  color:#e9e1c9;
+  font-size:13px;
+  line-height:1.4
+}
+
+.goals input{
+  margin:5px 0
+}
+
+.footer{
+  text-align:center;
+  color:#75847a;
+  font-size:11px;
+  margin-top:20px
+}
+
+.hide{
+  display:none
+}
+
+@media(max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .full{grid-column:auto}
+  h1{font-size:30px}
+}
+
+@media print{
+  body{background:white;color:black}
+  .wrap{max-width:none}
+  .card{
+    box-shadow:none;
+    border:1px solid #bbb;
+    background:white;
+    color:black
+  }
+  .hero .sub,.detail,label,.footer{color:#555}
+  .time,.kicker{color:#235d2f}
+  input,select{color:black;background:white}
+  .primary,.ghost{display:none}
+  .card{break-inside:avoid}
+}
 </style>
 </head>
+
 <body>
+
 <div class="wrap">
+
   <div class="hero">
     <div class="kicker">⚽ DEIN SPIEL. DEIN PLAN.</div>
     <h1>MAX' MATCHDAY</h1>
-    <div class="sub">Spieltag eingeben. Plan bekommen. Kopf frei fürs Fußballspielen.</div>
-  </div>
-<div class="card" id="spielerPlusBox" style="display:none;">
-  <h2>⚽ Nächster Matchday</h2>
-
-  <div id="spielerPlusInfo">
-    SpielerPlus wird geladen …
+    <div class="sub">
+      Spieltag eingeben. Plan bekommen. Kopf frei fürs Fußballspielen.
+    </div>
   </div>
 
-  <button type="button" id="spielerPlusUebernehmen">
-    Diesen Spieltag übernehmen
-  </button>
-</div>
+
+  <!-- SPIELERPLUS -->
+
+  <div class="card" id="spielerPlusBox" style="display:none;">
+    <h2>⚽ Nächster Matchday</h2>
+
+    <div id="spielerPlusInfo">
+      SpielerPlus wird geladen …
+    </div>
+
+    <button type="button" id="spielerPlusUebernehmen">
+      Diesen Spieltag übernehmen
+    </button>
+  </div>
+
+
+  <!-- EINGABE -->
+
   <div class="card">
+
     <h2>1 · Was steht an?</h2>
+
     <div class="grid">
-      <div><label>Datum</label><input id="date" type="date"></div>
-      <div><label>Art</label><select id="type"><option value="single">⚽ Einzelspiel</option><option value="tournament">🏆 Turnier / Spieltag</option></select></div>
-      <div><label>Erster Anpfiff</label><input id="kickoff" type="time"></div>
-<div><label>Treffpunkt / Abfahrt</label><input id="meet" type="time"></div>
-<div><label>Fahrtzeit ab Treffpunkt (Min.)</label><input id="travel" type="number" min="0"></div>
-<div><label>Wann musst du zuhause los? (Min. vorher)</label><input id="homeTravel" type="number" min="0"></div>
-      <div><label>Spielformat</label>
+
+      <div>
+        <label>Datum</label>
+        <input id="date" type="date">
+      </div>
+
+      <div>
+        <label>Art</label>
+        <select id="type">
+          <option value="single">⚽ Einzelspiel</option>
+          <option value="tournament">🏆 Turnier / Spieltag</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Erster Anpfiff</label>
+        <input id="kickoff" type="time">
+      </div>
+
+      <div>
+        <label>Treffpunkt Mannschaft</label>
+        <input id="meet" type="time">
+      </div>
+
+      <div>
+        <label>Fahrt von zuhause zum Treffpunkt (Min.)</label>
+        <input
+          id="homeTravel"
+          type="number"
+          min="0"
+          placeholder="z. B. 10"
+        >
+      </div>
+
+      <div>
+        <label>Zuhause los</label>
+        <input
+          id="leaveDisplay"
+          type="time"
+          readonly
+        >
+      </div>
+
+      <div>
+        <label>Spielformat</label>
+
         <select id="format">
           <option value="single">1 × Spielzeit</option>
           <option value="3x30">3 × 30 Minuten</option>
           <option value="custom">Mehrere Spielabschnitte</option>
         </select>
       </div>
-      <div><label>Minuten pro Abschnitt</label><input id="duration" type="number" min="5" value="60"></div>
-      <div id="periodsBox"><label>Anzahl Abschnitte</label><input id="periods" type="number" min="1" value="1"></div>
-      <div id="pauseBox"><label>Pause zwischen Abschnitten (Min.)</label><input id="pause" type="number" min="1" value="10"></div>
-      <div id="gamesBox"><label>Anzahl Spiele am Turniertag</label><input id="games" type="number" min="1" value="1"></div>
-      <div id="endBox" class="hide"><label>Turnier endet ungefähr</label><input id="end" type="time" value="17:00"></div>
-      <div><label>Frühstück braucht Max (Min.)</label><input id="breakfastDur" type="number" min="10" value="20"></div>
-      <div><label>Schlafziel (Stunden)</label><input id="sleepHours" type="number" min="9" max="12" step="0.5" value="10"></div>
-      <div class="full"><label>Besonderheit</label><select id="weather"><option value="normal">Normaler Tag</option><option value="hot">☀️ Warm / heiß</option><option value="cold">🌧️ Kalt / nass</option></select></div>
+
+      <div>
+        <label>Minuten pro Abschnitt</label>
+        <input id="duration" type="number" min="5" value="60">
+      </div>
+
+      <div id="periodsBox">
+        <label>Anzahl Abschnitte</label>
+        <input id="periods" type="number" min="1" value="1">
+      </div>
+
+      <div id="pauseBox">
+        <label>Pause zwischen Abschnitten (Min.)</label>
+        <input id="pause" type="number" min="1" value="10">
+      </div>
+
+      <div id="gamesBox">
+        <label>Anzahl Spiele am Turniertag</label>
+        <input id="games" type="number" min="1" value="1">
+      </div>
+
+      <div id="endBox" class="hide">
+        <label>Turnier endet ungefähr</label>
+        <input id="end" type="time" value="17:00">
+      </div>
+
+      <div>
+        <label>Frühstück braucht Max (Min.)</label>
+        <input id="breakfastDur" type="number" min="10" value="20">
+      </div>
+
+      <div>
+        <label>Schlafziel (Stunden)</label>
+        <input
+          id="sleepHours"
+          type="number"
+          min="9"
+          max="12"
+          step="0.5"
+          value="10"
+        >
+      </div>
+
+      <div class="full">
+        <label>Besonderheit</label>
+
+        <select id="weather">
+          <option value="normal">Normaler Tag</option>
+          <option value="hot">☀️ Warm / heiß</option>
+          <option value="cold">🌧️ Kalt / nass</option>
+        </select>
+      </div>
+
     </div>
-    <button class="primary" onclick="buildPlan()">MEINEN SPIELTAG BAUEN →</button>
+
+    <button class="primary" onclick="buildPlan()">
+      MEINEN SPIELTAG BAUEN →
+    </button>
+
   </div>
+
+
+  <!-- ERGEBNIS -->
 
   <div id="result" class="hide">
+
     <div class="card">
+
       <h2>2 · Dein Matchday-Plan</h2>
+
       <div id="summary"></div>
+
       <div id="timeline" class="timeline"></div>
+
     </div>
+
 
     <div class="card">
+
       <h2>🎒 Das kommt heute mit</h2>
+
       <div id="bag"></div>
+
     </div>
 
+
     <div class="card goals">
+
       <h2>🎯 Meine 3 Ziele</h2>
+
       <input placeholder="1 · z. B. erster Kontakt sauber">
+
       <input placeholder="2 · z. B. linken Fuß bewusst benutzen">
+
       <input placeholder="3 · z. B. nach Ballverlust sofort reagieren">
+
     </div>
+
 
     <div class="card goals">
-      <h2>Nach dem Spiel</h2>
-      <label>Das lief heute gut:</label><input placeholder="...">
-      <label style="margin-top:9px">Das nehme ich ins nächste Spiel mit:</label><input placeholder="...">
-    </div>
-    <button class="ghost" onclick="window.print()">🖨️ Plan drucken</button>
-  </div>
-  <div class="footer">Für Max · Matchday Routine · Schlaf geht bei sehr frühen Spielen vor starren Zeitregeln.</div>
-</div>
-<script>
-const $=id=>document.getElementById(id);
-function mins(t){let [h,m]=t.split(':').map(Number);return h*60+m}
-function clock(n){n=(n+1440)%1440;return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
-function item(t,w,d){return `<div class="item"><div class="time">${t}</div><div><div class="what">${w}</div><div class="detail">${d}</div></div></div>`}
 
-function save(){
-  // Nur allgemeine Einstellungen merken.
-  // Spieltagsspezifische Zeiten werden NICHT gespeichert.
-  ['format','duration','periods','pause','breakfastDur','sleepHours','weather']
-    .forEach(x => localStorage.setItem('max_' + x, $(x).value));
+      <h2>Nach dem Spiel</h2>
+
+      <label>Das lief heute gut:</label>
+      <input placeholder="...">
+
+      <label style="margin-top:9px">
+        Das nehme ich ins nächste Spiel mit:
+      </label>
+      <input placeholder="...">
+
+    </div>
+
+
+    <button class="ghost" onclick="window.print()">
+      🖨️ Plan drucken
+    </button>
+
+  </div>
+
+
+  <div class="footer">
+    Für Max · Matchday Routine · Schlaf geht bei sehr frühen Spielen vor starren Zeitregeln.
+  </div>
+
+</div>
+
+
+<script>
+
+/* -------------------------------------------------
+   GRUNDFUNKTIONEN
+------------------------------------------------- */
+
+const $ = id => document.getElementById(id);
+
+function mins(t){
+  if(!t) return null;
+
+  let [h,m] = t.split(':').map(Number);
+
+  return h * 60 + m;
 }
 
+function clock(n){
+  n = (n + 1440) % 1440;
+
+  return String(Math.floor(n / 60)).padStart(2,'0')
+    + ':'
+    + String(n % 60).padStart(2,'0');
+}
+
+function item(t,w,d){
+  return `
+    <div class="item">
+      <div class="time">${t}</div>
+      <div>
+        <div class="what">${w}</div>
+        <div class="detail">${d}</div>
+      </div>
+    </div>
+  `;
+}
+
+
+/* -------------------------------------------------
+   SPEICHERN
+------------------------------------------------- */
+
+function save(){
+
+  // Nur allgemeine Einstellungen merken.
+  // Spieltagsspezifische Zeiten werden nicht gespeichert.
+
+  [
+    'format',
+    'duration',
+    'periods',
+    'pause',
+    'breakfastDur',
+    'sleepHours',
+    'weather'
+  ].forEach(x => {
+    localStorage.setItem('max_' + x, $(x).value);
+  });
+}
+
+
 function load(){
-  // Spieltag zunächst leer starten
+
+  // Jeder Spieltag startet mit leeren individuellen Daten.
+
   $('date').value = '';
   $('kickoff').value = '';
   $('meet').value = '';
-  $('travel').value = '';
   $('homeTravel').value = '';
+  $('leaveDisplay').value = '';
 
-  // Alte gespeicherte Spieltagswerte einmalig entfernen
-  ['type','kickoff','meet','travel','homeTravel','games','end']
-    .forEach(x => localStorage.removeItem('max_' + x));
+  // Alte gespeicherte Spieltagsdaten entfernen.
 
-  // Nur allgemeine Einstellungen wiederherstellen
-  ['format','duration','periods','pause','breakfastDur','sleepHours','weather']
-    .forEach(x => {
-      const v = localStorage.getItem('max_' + x);
-      if (v !== null) $(x).value = v;
-    });
+  [
+    'type',
+    'kickoff',
+    'meet',
+    'travel',
+    'homeTravel',
+    'games',
+    'end'
+  ].forEach(x => {
+    localStorage.removeItem('max_' + x);
+  });
+
+  // Allgemeine Einstellungen wieder laden.
+
+  [
+    'format',
+    'duration',
+    'periods',
+    'pause',
+    'breakfastDur',
+    'sleepHours',
+    'weather'
+  ].forEach(x => {
+
+    const v = localStorage.getItem('max_' + x);
+
+    if(v !== null){
+      $(x).value = v;
+    }
+
+  });
 
   toggleType();
+  updateLeaveTime();
 }
+
+
+/* -------------------------------------------------
+   FORMULAR
+------------------------------------------------- */
+
 function toggleFormat(){
- let f=$('format').value;
- if(f==='3x30'){ $('duration').value=30; $('periods').value=3; }
- if(f==='single'){ $('periods').value=1; }
- $('periodsBox').classList.toggle('hide',f==='single');
- $('pauseBox').classList.toggle('hide',f==='single');
+
+  let f = $('format').value;
+
+  if(f === '3x30'){
+    $('duration').value = 30;
+    $('periods').value = 3;
+  }
+
+  if(f === 'single'){
+    $('periods').value = 1;
+  }
+
+  $('periodsBox').classList.toggle(
+    'hide',
+    f === 'single'
+  );
+
+  $('pauseBox').classList.toggle(
+    'hide',
+    f === 'single'
+  );
 }
+
+
 function toggleType(){
- let tour=$('type').value==='tournament';
- $('endBox').classList.toggle('hide',!tour); $('gamesBox').classList.toggle('hide',!tour);
- toggleFormat();
+
+  let tour = $('type').value === 'tournament';
+
+  $('endBox').classList.toggle(
+    'hide',
+    !tour
+  );
+
+  $('gamesBox').classList.toggle(
+    'hide',
+    !tour
+  );
+
+  toggleFormat();
 }
-$('type').addEventListener('change',toggleType);
-$('format').addEventListener('change',toggleFormat);
+
+
+/* -------------------------------------------------
+   ABFAHRT VON ZUHAUSE
+------------------------------------------------- */
+
+function updateLeaveTime(){
+
+  const meet = mins($('meet').value);
+
+  const homeTravel =
+    Number($('homeTravel').value);
+
+  if(
+    meet === null ||
+    $('homeTravel').value === ''
+  ){
+    $('leaveDisplay').value = '';
+    return;
+  }
+
+  const leave = meet - homeTravel;
+
+  $('leaveDisplay').value = clock(leave);
+}
+
+
+$('type').addEventListener(
+  'change',
+  toggleType
+);
+
+$('format').addEventListener(
+  'change',
+  toggleFormat
+);
+
+$('meet').addEventListener(
+  'input',
+  updateLeaveTime
+);
+
+$('homeTravel').addEventListener(
+  'input',
+  updateLeaveTime
+);
+
+
+/* -------------------------------------------------
+   MATCHDAY PLAN
+------------------------------------------------- */
 
 function buildPlan(){
- save();
- let ko=mins($('kickoff').value), meet=mins($('meet').value), homeTravel=+$('homeTravel').value||0;
- let leave=meet-homeTravel, tour=$('type').value==='tournament', games=+$('games').value||1, dur=+$('duration').value||60, periods=+$('periods').value||1, pause=+$('pause').value||10;
- let veryEarly=ko<600 || meet<540;
- // Normal target: wake ~4.5h before KO, but never force extreme wake-ups.
- let wake=veryEarly ? Math.max(ko-150, meet-105) : Math.min(ko-270, meet-210);
- // If calculated wake is after leaving, force sensible prep window.
- wake=Math.min(wake,leave-60);
- let breakfast=wake+15, activate=wake+5, bagcheck=leave-35;
- let snack=ko-120;
- let warm=ko-50;
- let tl='';
- let sleepHours=+$('sleepHours').value||10;
- let lightsOut=wake-Math.round(sleepHours*60);
- let bed=lightsOut-15, windDown=lightsOut-45;
- tl+=item('VORABEND','🌙 SCHLAF VORBEREITEN',`${clock(windDown)} runterfahren · ${clock(bed)} ins Bett · ${clock(lightsOut)} Licht aus · Ziel: ${sleepHours} Std. Schlaf.`);
- tl+=item(clock(wake),'AUFSTEHEN','Wasser · Tageslicht · anziehen · nicht wieder hinlegen.');
- tl+=item(clock(activate),'KÖRPER ANSCHALTEN','5–10 Min. locker bewegen. Kein Training, keine Sprints.');
- tl+=item(clock(breakfast),'FRÜHSTÜCK', veryEarly?'Leicht und gut verträglich: Brot/Toast + Honig/Marmelade, Banane, Wasser. Schlaf war heute wichtiger als ein riesiges Frühstück.':'Kohlenhydrate + etwas Eiweiß: Brot/Toast, Honig/Marmelade, Banane, Joghurt/Skyr, Wasser.');
- if(!veryEarly && bagcheck>wake+60) tl+=item(clock(wake+75),'ENTSPANNEN','Freizeit okay. Normal bewegen, aber kein Toben und nicht wieder ins Bett.');
- tl+=item(clock(bagcheck),'TASCHE CHECKEN','Schuhe · Schienbeinschoner · Kleidung · Trinkflasche · Essen.');
- tl+=item(clock(leave),'ZUHAUSE LOS','Ruhig los. Kein Stress auf den letzten Metern.');
- tl+=item(clock(meet),'TREFFPUNKT','Mannschaft treffen · ab jetzt Matchday-Modus.');
- if(snack>meet+20) tl+=item(clock(snack),'KLEINER SNACK','Nur wenn nötig: Banane, Toast/Brötchen, Salzbrezeln. Leicht bleiben.');
- tl+=item(clock(warm),'WARM-UP','Mannschaft · Trainer · konzentriert aufwärmen.');
- tl+=item(clock(ko),'ANPFIFF 🔥','Einfach starten · wach · mutig · nach Fehlern sofort weitermachen.');
- if(!tour && periods>1){
-   let cursor=ko;
-   for(let i=1;i<=periods;i++){
-     let endPeriod=cursor+dur;
-     tl+=item(clock(cursor)+'–'+clock(endPeriod),`ABSCHNITT ${i} · ${dur} MIN.`, i===1?'Voll da sein.': 'Wieder frisch starten · Fokus sofort zurück.');
-     if(i<periods){
-       tl+=item(clock(endPeriod),`KURZE PAUSE · ca. ${pause} MIN.`,`Trinken · ruhig bleiben · Trainer zuhören · nicht auskühlen.`);
-       cursor=endPeriod+pause;
-     }
-   }
- }
- let finish = tour ? mins($('end').value) : ko + (dur*periods) + (pause*Math.max(0,periods-1));
- if(tour){
-   tl+=item('ZWISCHEN<br>SPIELEN','ENERGIE HALTEN','Kleine Portionen essen, regelmäßig trinken, warm bleiben. Nicht jedes Mal vollstopfen.');
-   tl+=item(clock(finish),'TURNIERENDE','Trinken · runterkommen · danach Kohlenhydrate + Eiweiß.');
- } else {
-   tl+=item(clock(finish),'ABPFIFF','5–10 Min. runterkommen · trinken · Mannschaft.');
- }
- tl+=item(clock(finish+30),'REGENERATION','Innerhalb ca. 60 Min.: z. B. Banane + Joghurt, belegtes Brötchen oder Kakao + Banane.');
- tl+=item('ABENDS','AUFTANKEN','Normale Mahlzeit · ausreichend trinken · rechtzeitig schlafen.');
 
- $('timeline').innerHTML=tl;
- let fmt = periods>1 ? `${periods} × ${dur} Min. + ${pause} Min. Pausen` : `${dur} Min.`; let tags = `<span class="badge">${tour?'🏆 Turnier / Spieltag':'⚽ Einzelspiel'}</span><span class="badge">${fmt}</span><span class="badge">Anpfiff ${$('kickoff').value}</span><span class="badge">Treffpunkt ${$('meet').value}</span>`;
- let note=veryEarly?`<p class="note"><b>Früher Spieltag:</b> Heute wird nicht künstlich 4 Stunden vor dem Spiel aufgestanden. Schlaf hat Priorität. Frühstück kleiner halten und Verpflegung mitnehmen.</p>`:'';
- $('summary').innerHTML=tags+note;
+  const kickoffValue = $('kickoff').value;
+  const meetValue = $('meet').value;
+  const homeTravelValue = $('homeTravel').value;
 
- let bag=['💧 Wasser','🍌 2 Bananen','🥖 Brot/Brötchen oder Toast','🥨 Salzbrezeln','👟 Fußballschuhe','🛡️ Schienbeinschoner','👕 Wechselshirt / trockene Sachen'];
- if(tour){bag.push('🥪 Extra-Verpflegung für den ganzen Tag');bag.push('🧥 Warme Jacke für Spielpausen')}
- if($('weather').value==='hot'){bag.push('☀️ Extra Wasser + Sonnenschutz')}
- if($('weather').value==='cold'){bag.push('🌧️ Regen-/Warmhaltejacke + trockene Socken')}
- $('bag').innerHTML=bag.map(x=>`<span class="badge">${x}</span>`).join('');
- $('result').classList.remove('hide');
- $('result').scrollIntoView({behavior:'smooth'});
+  if(!kickoffValue){
+    alert("Bitte den Anpfiff eintragen.");
+    return;
+  }
+
+  if(!meetValue){
+    alert("Bitte den Treffpunkt eintragen.");
+    return;
+  }
+
+  if(homeTravelValue === ''){
+    alert("Bitte die Fahrtzeit von zuhause zum Treffpunkt eintragen.");
+    return;
+  }
+
+  save();
+
+  const ko = mins(kickoffValue);
+  const meet = mins(meetValue);
+
+  const homeTravel =
+    Number(homeTravelValue) || 0;
+
+  const leave =
+    meet - homeTravel;
+
+  const tour =
+    $('type').value === 'tournament';
+
+  const games =
+    Number($('games').value) || 1;
+
+  const dur =
+    Number($('duration').value) || 60;
+
+  const periods =
+    Number($('periods').value) || 1;
+
+  const pause =
+    Number($('pause').value) || 10;
+
+
+  /* -----------------------------------------------
+     MORGENROUTINE
+
+     Entscheidend ist NICHT der Anpfiff,
+     sondern wann Max zuhause los muss.
+  ------------------------------------------------ */
+
+  const veryEarly =
+    leave < 450; // vor 07:30 Uhr
+
+  const prepTime =
+    veryEarly ? 75 : 90;
+
+  const wake =
+    leave - prepTime;
+
+  const activate =
+    wake + 5;
+
+  const breakfast =
+    wake + 15;
+
+  const bagcheck =
+    leave - 25;
+
+
+  /* -----------------------------------------------
+     SCHLAF
+  ------------------------------------------------ */
+
+  const sleepHours =
+    Number($('sleepHours').value) || 10;
+
+  const lightsOut =
+    wake - Math.round(sleepHours * 60);
+
+  const bed =
+    lightsOut - 15;
+
+  const windDown =
+    lightsOut - 45;
+
+
+  /* -----------------------------------------------
+     MATCHDAY TIMELINE
+  ------------------------------------------------ */
+
+  let tl = '';
+
+
+  tl += item(
+    'VORABEND',
+    '🌙 SCHLAF VORBEREITEN',
+    `${clock(windDown)} runterfahren · ` +
+    `${clock(bed)} ins Bett · ` +
+    `${clock(lightsOut)} Licht aus · ` +
+    `Ziel: ${sleepHours} Std. Schlaf.`
+  );
+
+
+  tl += item(
+    clock(wake),
+    'AUFSTEHEN',
+    'Wasser · Tageslicht · anziehen · ruhig in den Tag starten.'
+  );
+
+
+  tl += item(
+    clock(activate),
+    'KÖRPER ANSCHALTEN',
+    '5–10 Min. locker bewegen. Kein Training, keine Sprints.'
+  );
+
+
+  tl += item(
+    clock(breakfast),
+    'FRÜHSTÜCK',
+    veryEarly
+      ? 'Leicht und gut verträglich: Brot/Toast + Honig oder Marmelade, Banane, Wasser. Bei sehr frühen Spieltagen hat Schlaf Priorität.'
+      : 'Kohlenhydrate + etwas Eiweiß: Brot/Toast, Honig oder Marmelade, Banane, Joghurt/Skyr, Wasser.'
+  );
+
+
+  if(
+    !veryEarly &&
+    bagcheck > wake + 60
+  ){
+    tl += item(
+      clock(wake + 60),
+      'ENTSPANNEN',
+      'Freizeit okay. Normal bewegen, aber kein Toben und nicht wieder ins Bett.'
+    );
+  }
+
+
+  tl += item(
+    clock(bagcheck),
+    'TASCHE CHECKEN',
+    'Schuhe · Schienbeinschoner · Kleidung · Trinkflasche · Essen.'
+  );
+
+
+  tl += item(
+    clock(leave),
+    'ZUHAUSE LOS',
+    `${homeTravel} Min. bis zum Mannschaftstreffpunkt.`
+  );
+
+
+  tl += item(
+    clock(meet),
+    'TREFFPUNKT MANNSCHAFT',
+    'Mannschaft treffen · gemeinsame Abfahrt bzw. ab jetzt Matchday-Modus.'
+  );
+
+
+  /*
+    Snack und Warm-up beziehen sich auf den Anpfiff.
+  */
+
+  const snack =
+    ko - 120;
+
+  const warm =
+    ko - 50;
+
+
+  if(snack > meet + 20){
+
+    tl += item(
+      clock(snack),
+      'KLEINER SNACK',
+      'Nur wenn nötig: Banane, Toast/Brötchen oder Salzbrezeln. Leicht bleiben.'
+    );
+
+  }
+
+
+  tl += item(
+    clock(warm),
+    'WARM-UP',
+    'Mannschaft · Trainer · konzentriert aufwärmen.'
+  );
+
+
+  tl += item(
+    clock(ko),
+    'ANPFIFF 🔥',
+    'Einfach starten · wach · mutig · nach Fehlern sofort weitermachen.'
+  );
+
+
+  /* -----------------------------------------------
+     SPIELDAUER
+  ------------------------------------------------ */
+
+  if(
+    !tour &&
+    periods > 1
+  ){
+
+    let cursor = ko;
+
+    for(
+      let i = 1;
+      i <= periods;
+      i++
+    ){
+
+      const endPeriod =
+        cursor + dur;
+
+      tl += item(
+        clock(cursor) + '–' + clock(endPeriod),
+        `ABSCHNITT ${i} · ${dur} MIN.`,
+        i === 1
+          ? 'Voll da sein.'
+          : 'Wieder frisch starten · Fokus sofort zurück.'
+      );
+
+
+      if(i < periods){
+
+        tl += item(
+          clock(endPeriod),
+          `KURZE PAUSE · ca. ${pause} MIN.`,
+          'Trinken · ruhig bleiben · Trainer zuhören · nicht auskühlen.'
+        );
+
+        cursor =
+          endPeriod + pause;
+      }
+    }
+  }
+
+
+  let finish;
+
+  if(tour && $('end').value){
+
+    finish =
+      mins($('end').value);
+
+  }else{
+
+    finish =
+      ko +
+      (dur * periods) +
+      (pause * Math.max(0, periods - 1));
+
+  }
+
+
+  if(tour){
+
+    tl += item(
+      'ZWISCHEN<br>SPIELEN',
+      'ENERGIE HALTEN',
+      'Kleine Portionen essen, regelmäßig trinken, warm bleiben.'
+    );
+
+
+    tl += item(
+      clock(finish),
+      'TURNIERENDE',
+      'Trinken · runterkommen · danach Kohlenhydrate + Eiweiß.'
+    );
+
+  }else{
+
+    tl += item(
+      clock(finish),
+      'ABPFIFF',
+      '5–10 Min. runterkommen · trinken · Mannschaft.'
+    );
+
+  }
+
+
+  tl += item(
+    clock(finish + 30),
+    'REGENERATION',
+    'Innerhalb ca. 60 Min.: z. B. Banane + Joghurt, belegtes Brötchen oder Kakao + Banane.'
+  );
+
+
+  tl += item(
+    'ABENDS',
+    'AUFTANKEN',
+    'Normale Mahlzeit · ausreichend trinken · rechtzeitig schlafen.'
+  );
+
+
+  $('timeline').innerHTML = tl;
+
+
+  /* -----------------------------------------------
+     ZUSAMMENFASSUNG
+  ------------------------------------------------ */
+
+  const fmt =
+    periods > 1
+      ? `${periods} × ${dur} Min. + ${pause} Min. Pausen`
+      : `${dur} Min.`;
+
+
+  const tags =
+
+    `<span class="badge">
+      ${tour
+        ? '🏆 Turnier / Spieltag'
+        : '⚽ Einzelspiel'}
+    </span>`
+
+    +
+
+    `<span class="badge">
+      ${fmt}
+    </span>`
+
+    +
+
+    `<span class="badge">
+      Anpfiff ${kickoffValue}
+    </span>`
+
+    +
+
+    `<span class="badge">
+      Treffpunkt ${meetValue}
+    </span>`
+
+    +
+
+    `<span class="badge">
+      Zuhause los ${clock(leave)}
+    </span>`;
+
+
+  const note =
+    veryEarly
+      ? `<p class="note">
+          <b>Früher Spieltag:</b>
+          Die Morgenroutine wird heute etwas kompakter gehalten.
+          Schlaf hat Priorität.
+        </p>`
+      : '';
+
+
+  $('summary').innerHTML =
+    tags + note;
+
+
+  /* -----------------------------------------------
+     TASCHE
+  ------------------------------------------------ */
+
+  let bag = [
+    '💧 Wasser',
+    '🍌 2 Bananen',
+    '🥖 Brot/Brötchen oder Toast',
+    '🥨 Salzbrezeln',
+    '👟 Fußballschuhe',
+    '🛡️ Schienbeinschoner',
+    '👕 Wechselshirt / trockene Sachen'
+  ];
+
+
+  if(tour){
+    bag.push(
+      '🥪 Extra-Verpflegung für den ganzen Tag'
+    );
+
+    bag.push(
+      '🧥 Warme Jacke für Spielpausen'
+    );
+  }
+
+
+  if($('weather').value === 'hot'){
+    bag.push(
+      '☀️ Extra Wasser + Sonnenschutz'
+    );
+  }
+
+
+  if($('weather').value === 'cold'){
+    bag.push(
+      '🌧️ Regen-/Warmhaltejacke + trockene Socken'
+    );
+  }
+
+
+  $('bag').innerHTML =
+    bag
+      .map(x => `<span class="badge">${x}</span>`)
+      .join('');
+
+
+  $('result').classList.remove(
+    'hide'
+  );
+
+
+  $('result').scrollIntoView({
+    behavior:'smooth'
+  });
 }
+
+
+/* -------------------------------------------------
+   APP STARTEN
+------------------------------------------------- */
+
 load();
+
 </script>
+
+
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+
+/* -------------------------------------------------
+   SERVICE WORKER
+------------------------------------------------- */
+
+if('serviceWorker' in navigator){
+
+  window.addEventListener(
+    'load',
+    () => {
+      navigator.serviceWorker
+        .register('./sw.js')
+        .catch(() => {});
+    }
+  );
+
 }
+
 </script>
+
+
 <script>
-async function ladeSpielerPlusTermine() {
-  try {
+
+/* -------------------------------------------------
+   SPIELERPLUS
+------------------------------------------------- */
+
+async function ladeSpielerPlusTermine(){
+
+  try{
+
     const response = await fetch(
       "https://max-matchday-calendar.a-alber.workers.dev/"
     );
 
-    if (!response.ok) {
-      throw new Error("SpielerPlus konnte nicht geladen werden");
+
+    if(!response.ok){
+      throw new Error(
+        "SpielerPlus konnte nicht geladen werden"
+      );
     }
 
-    const data = await response.json();
 
-    if (!data.success || !Array.isArray(data.events)) {
-      throw new Error("Keine gültigen Termine erhalten");
+    const data =
+      await response.json();
+
+
+    if(
+      !data.success ||
+      !Array.isArray(data.events)
+    ){
+      throw new Error(
+        "Keine gültigen Termine erhalten"
+      );
     }
 
-    // Nur Termine ab heute
-    const heute = new Date();
-    heute.setHours(0, 0, 0, 0);
 
-    const kommendeTermine = data.events
+    /* ---------------------------------------------
+       SPIELERPLUS DATUM PARSEN
+    --------------------------------------------- */
+
+    const heute =
+      new Date();
+
+    heute.setHours(
+      0,0,0,0
+    );
+
+
+    const kommendeTermine =
+      data.events
+
       .map(event => {
-        const wert = event.start;
 
-        const jahr = Number(wert.slice(0, 4));
-        const monat = Number(wert.slice(4, 6)) - 1;
-        const tag = Number(wert.slice(6, 8));
-        const stunde = Number(wert.slice(9, 11) || 0);
-        const minute = Number(wert.slice(11, 13) || 0);
+        const wert =
+          event.start;
 
-        return {
+        const jahr =
+          Number(wert.slice(0,4));
+
+        const monat =
+          Number(wert.slice(4,6)) - 1;
+
+        const tag =
+          Number(wert.slice(6,8));
+
+        const stunde =
+          Number(wert.slice(9,11) || 0);
+
+        const minute =
+          Number(wert.slice(11,13) || 0);
+
+
+        return{
           ...event,
-          datum: new Date(jahr, monat, tag, stunde, minute)
+
+          datum:new Date(
+            jahr,
+            monat,
+            tag,
+            stunde,
+            minute
+          )
         };
+
       })
-      .filter(event => event.datum >= heute)
-      .sort((a, b) => a.datum - b.datum);
 
-    console.log("SpielerPlus verbunden ✅");
-    console.log("Kommende Termine:", kommendeTermine);
+      .filter(
+        event =>
+          event.datum >= heute
+      )
 
-    // Für die nächsten Schritte global verfügbar machen
-    window.spielerPlusTermine = kommendeTermine;
-// Nächsten noch nicht beendeten Matchday finden
-const jetzt = new Date();
+      .sort(
+        (a,b) =>
+          a.datum - b.datum
+      );
 
-const naechsterMatchday = kommendeTermine.find(event => {
-  const istMatchday =
-    event.uid.startsWith("game.") ||
-    event.uid.startsWith("tournament.");
 
-  if (!istMatchday) return false;
+    window.spielerPlusTermine =
+      kommendeTermine;
 
-  // Endzeit aus SpielerPlus auslesen
-  const wert = event.end;
 
-  if (!wert) {
-    return event.datum >= jetzt;
+    /* ---------------------------------------------
+       NÄCHSTEN NOCH NICHT BEENDETEN MATCHDAY FINDEN
+    --------------------------------------------- */
+
+    const jetzt =
+      new Date();
+
+
+    const naechsterMatchday =
+      kommendeTermine.find(event => {
+
+        const istMatchday =
+          event.uid.startsWith("game.") ||
+          event.uid.startsWith("tournament.");
+
+
+        if(!istMatchday){
+          return false;
+        }
+
+
+        const wert =
+          event.end;
+
+
+        if(!wert){
+          return event.datum >= jetzt;
+        }
+
+
+        const jahr =
+          Number(wert.slice(0,4));
+
+        const monat =
+          Number(wert.slice(4,6)) - 1;
+
+        const tag =
+          Number(wert.slice(6,8));
+
+        const stunde =
+          Number(wert.slice(9,11) || 0);
+
+        const minute =
+          Number(wert.slice(11,13) || 0);
+
+
+        const ende =
+          new Date(
+            jahr,
+            monat,
+            tag,
+            stunde,
+            minute
+          );
+
+
+        return ende > jetzt;
+
+      });
+
+
+    window.naechsterMatchday =
+      naechsterMatchday;
+
+
+    /* ---------------------------------------------
+       MATCHDAY ANZEIGEN
+    --------------------------------------------- */
+
+    if(naechsterMatchday){
+
+      const box =
+        document.getElementById(
+          "spielerPlusBox"
+        );
+
+      const info =
+        document.getElementById(
+          "spielerPlusInfo"
+        );
+
+      const button =
+        document.getElementById(
+          "spielerPlusUebernehmen"
+        );
+
+
+      const datumAnzeige =
+        naechsterMatchday.datum
+          .toLocaleDateString(
+            "de-DE",
+            {
+              weekday:"long",
+              day:"2-digit",
+              month:"2-digit",
+              year:"numeric"
+            }
+          );
+
+
+      const zeitAnzeige =
+        naechsterMatchday.datum
+          .toLocaleTimeString(
+            "de-DE",
+            {
+              hour:"2-digit",
+              minute:"2-digit"
+            }
+          );
+
+
+      const ort =
+        naechsterMatchday.location
+          ? naechsterMatchday.location
+              .replace(/\\,/g,",")
+          : "Kein Spielort eingetragen";
+
+
+      info.innerHTML = `
+        <p>
+          <strong>${datumAnzeige}</strong>
+        </p>
+
+        <p>
+          ${naechsterMatchday.title}
+        </p>
+
+        <p>
+          🕒 Treffen: ${zeitAnzeige} Uhr
+        </p>
+
+        <p>
+          📍 Spielort: ${ort}
+        </p>
+      `;
+
+
+      box.style.display =
+        "block";
+
+
+      /* -------------------------------------------
+         SPIELTAG ÜBERNEHMEN
+      ------------------------------------------- */
+
+      button.onclick = function(){
+
+        const jahr =
+          naechsterMatchday.datum
+            .getFullYear();
+
+        const monat =
+          String(
+            naechsterMatchday.datum
+              .getMonth() + 1
+          ).padStart(2,"0");
+
+        const tag =
+          String(
+            naechsterMatchday.datum
+              .getDate()
+          ).padStart(2,"0");
+
+
+        /*
+          Alte spieltagsspezifische Werte leeren.
+        */
+
+        $('date').value = '';
+        $('kickoff').value = '';
+        $('meet').value = '';
+        $('homeTravel').value = '';
+        $('leaveDisplay').value = '';
+
+
+        /*
+          Datum aus SpielerPlus.
+        */
+
+        $('date').value =
+          `${jahr}-${monat}-${tag}`;
+
+
+        /*
+          Einzelspiel oder Turnier.
+        */
+
+        $('type').value =
+          naechsterMatchday.uid
+            .startsWith("tournament.")
+              ? "tournament"
+              : "single";
+
+
+        $('type').dispatchEvent(
+          new Event(
+            "change",
+            {bubbles:true}
+          )
+        );
+
+
+        /*
+          WICHTIG:
+
+          DTSTART aus dem SpielerPlus-Kalender
+          ist bei unseren Spielen der
+          Mannschaftstreffpunkt.
+
+          Es ist NICHT der Anpfiff.
+        */
+
+        const treffpunkt =
+
+          String(
+            naechsterMatchday.datum
+              .getHours()
+          ).padStart(2,"0")
+
+          +
+
+          ":"
+
+          +
+
+          String(
+            naechsterMatchday.datum
+              .getMinutes()
+          ).padStart(2,"0");
+
+
+        $('meet').value =
+          treffpunkt;
+
+
+        updateLeaveTime();
+
+
+        alert(
+          "Spieltag übernommen. Bitte Anpfiff und Fahrtzeit von zuhause zum Treffpunkt ergänzen."
+        );
+
+      };
+
+    }
+
+
+  }catch(error){
+
+    console.error(
+      "SpielerPlus-Fehler:",
+      error
+    );
+
   }
 
-  const jahr = Number(wert.slice(0, 4));
-  const monat = Number(wert.slice(4, 6)) - 1;
-  const tag = Number(wert.slice(6, 8));
-  const stunde = Number(wert.slice(9, 11) || 0);
-  const minute = Number(wert.slice(11, 13) || 0);
-
-  const ende = new Date(jahr, monat, tag, stunde, minute);
-
-  return ende > jetzt;
-});
-
-window.naechsterMatchday = naechsterMatchday;
-if (naechsterMatchday) {
-  const box = document.getElementById("spielerPlusBox");
-  const info = document.getElementById("spielerPlusInfo");
-  const button = document.getElementById("spielerPlusUebernehmen");
-
-  const datumAnzeige = naechsterMatchday.datum.toLocaleDateString("de-DE", {
-    weekday: "long",
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric"
-  });
-
-  const zeitAnzeige = naechsterMatchday.datum.toLocaleTimeString("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-
-  const ort = naechsterMatchday.location
-    ? naechsterMatchday.location.replace(/\\,/g, ",")
-    : "Kein Ort eingetragen";
-
-  info.innerHTML = `
-    <p><strong>${datumAnzeige}</strong></p>
-    <p>${naechsterMatchday.title}</p>
-    <p>🕒 ${zeitAnzeige} Uhr</p>
-    <p>📍 ${ort}</p>
-  `;
-
-  box.style.display = "block";
-
-  button.onclick = function () {
-  const jahr = naechsterMatchday.datum.getFullYear();
-  const monat = String(
-    naechsterMatchday.datum.getMonth() + 1
-  ).padStart(2, "0");
-  const tag = String(
-    naechsterMatchday.datum.getDate()
-  ).padStart(2, "0");
-
-  // Alte spieltagsspezifische Werte zuerst leeren
-  document.getElementById("date").value = "";
-  document.getElementById("kickoff").value = "";
-  document.getElementById("meet").value = "";
-  document.getElementById("travel").value = "";
-  document.getElementById("homeTravel").value = "";
-
-  // Datum aus SpielerPlus
-  document.getElementById("date").value =
-    `${jahr}-${monat}-${tag}`;
-
-  // Einzelspiel oder Turnier aus SpielerPlus
-  document.getElementById("type").value =
-    naechsterMatchday.uid.startsWith("tournament.")
-      ? "tournament"
-      : "single";
-
-  document.getElementById("type").dispatchEvent(
-    new Event("change", { bubbles: true })
-  );
-
-  // SpielerPlus-Startzeit = Treffpunkt
-  const treffpunkt =
-    String(naechsterMatchday.datum.getHours()).padStart(2, "0") +
-    ":" +
-    String(naechsterMatchday.datum.getMinutes()).padStart(2, "0");
-
-  document.getElementById("meet").value = treffpunkt;
-
-  alert(
-    "Spieltag übernommen. Bitte Anpfiff und Fahrtzeiten ergänzen."
-  );
-};
 }
-if (naechsterMatchday) {
-  console.log("Nächster Matchday ⚽", naechsterMatchday);
 
-  const datumText = naechsterMatchday.datum.toLocaleDateString("de-DE", {
-    weekday: "long",
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric"
-  });
-
-  const uhrzeitText = naechsterMatchday.datum.toLocaleTimeString("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-
-  console.log(
-    "MATCHDAY:",
-    datumText,
-    uhrzeitText,
-    naechsterMatchday.title,
-    naechsterMatchday.location
-  );
-}
-  } catch (error) {
-    console.error("SpielerPlus-Fehler:", error);
-  }
-}
 
 ladeSpielerPlusTermine();
+
 </script>
+
 </body>
 </html>
