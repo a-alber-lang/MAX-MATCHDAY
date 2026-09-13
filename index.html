@@ -53,10 +53,10 @@ button{border:0;border-radius:14px;padding:14px 16px;font-weight:900;font-size:1
     <div class="grid">
       <div><label>Datum</label><input id="date" type="date"></div>
       <div><label>Art</label><select id="type"><option value="single">⚽ Einzelspiel</option><option value="tournament">🏆 Turnier / Spieltag</option></select></div>
-      <div><label>Erster Anpfiff</label><input id="kickoff" type="time" value="13:30"></div>
-      <div><label>Treffpunkt / Abfahrt</label><input id="meet" type="time" value="12:15"></div>
-      <div><label>Fahrtzeit ab Treffpunkt (Min.)</label><input id="travel" type="number" min="0" value="20"></div>
-      <div><label>Wann musst du zuhause los? (Min. vorher)</label><input id="homeTravel" type="number" min="0" value="10"></div>
+      <div><label>Erster Anpfiff</label><input id="kickoff" type="time"></div>
+<div><label>Treffpunkt / Abfahrt</label><input id="meet" type="time"></div>
+<div><label>Fahrtzeit ab Treffpunkt (Min.)</label><input id="travel" type="number" min="0"></div>
+<div><label>Wann musst du zuhause los? (Min. vorher)</label><input id="homeTravel" type="number" min="0"></div>
       <div><label>Spielformat</label>
         <select id="format">
           <option value="single">1 × Spielzeit</option>
@@ -109,13 +109,34 @@ const $=id=>document.getElementById(id);
 function mins(t){let [h,m]=t.split(':').map(Number);return h*60+m}
 function clock(n){n=(n+1440)%1440;return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
 function item(t,w,d){return `<div class="item"><div class="time">${t}</div><div><div class="what">${w}</div><div class="detail">${d}</div></div></div>`}
+
 function save(){
- ['type','format','kickoff','meet','travel','homeTravel','duration','periods','pause','games','end','breakfastDur','sleepHours','weather'].forEach(x=>localStorage.setItem('max_'+x,$(x).value))
+  // Nur allgemeine Einstellungen merken.
+  // Spieltagsspezifische Zeiten werden NICHT gespeichert.
+  ['format','duration','periods','pause','breakfastDur','sleepHours','weather']
+    .forEach(x => localStorage.setItem('max_' + x, $(x).value));
 }
+
 function load(){
- let d=new Date(); $('date').value=d.toISOString().slice(0,10);
- ['type','format','kickoff','meet','travel','homeTravel','duration','periods','pause','games','end','breakfastDur','sleepHours','weather'].forEach(x=>{let v=localStorage.getItem('max_'+x);if(v!==null)$(x).value=v});
- toggleType()
+  // Spieltag zunächst leer starten
+  $('date').value = '';
+  $('kickoff').value = '';
+  $('meet').value = '';
+  $('travel').value = '';
+  $('homeTravel').value = '';
+
+  // Alte gespeicherte Spieltagswerte einmalig entfernen
+  ['type','kickoff','meet','travel','homeTravel','games','end']
+    .forEach(x => localStorage.removeItem('max_' + x));
+
+  // Nur allgemeine Einstellungen wiederherstellen
+  ['format','duration','periods','pause','breakfastDur','sleepHours','weather']
+    .forEach(x => {
+      const v = localStorage.getItem('max_' + x);
+      if (v !== null) $(x).value = v;
+    });
+
+  toggleType();
 }
 function toggleFormat(){
  let f=$('format').value;
@@ -312,11 +333,18 @@ if (naechsterMatchday) {
     naechsterMatchday.datum.getDate()
   ).padStart(2, "0");
 
-  // Datum übernehmen
+  // Alte spieltagsspezifische Werte zuerst leeren
+  document.getElementById("date").value = "";
+  document.getElementById("kickoff").value = "";
+  document.getElementById("meet").value = "";
+  document.getElementById("travel").value = "";
+  document.getElementById("homeTravel").value = "";
+
+  // Datum aus SpielerPlus
   document.getElementById("date").value =
     `${jahr}-${monat}-${tag}`;
 
-  // Einzelspiel oder Turnier übernehmen
+  // Einzelspiel oder Turnier aus SpielerPlus
   document.getElementById("type").value =
     naechsterMatchday.uid.startsWith("tournament.")
       ? "tournament"
@@ -335,7 +363,7 @@ if (naechsterMatchday) {
   document.getElementById("meet").value = treffpunkt;
 
   alert(
-    "Spieltag übernommen. Bitte nur noch den Anpfiff ergänzen."
+    "Spieltag übernommen. Bitte Anpfiff und Fahrtzeiten ergänzen."
   );
 };
 }
