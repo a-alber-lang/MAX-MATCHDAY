@@ -304,26 +304,40 @@ if (naechsterMatchday) {
   box.style.display = "block";
 
   button.onclick = function () {
-    const jahr = naechsterMatchday.datum.getFullYear();
-    const monat = String(naechsterMatchday.datum.getMonth() + 1).padStart(2, "0");
-    const tag = String(naechsterMatchday.datum.getDate()).padStart(2, "0");
+  const jahr = naechsterMatchday.datum.getFullYear();
+  const monat = String(
+    naechsterMatchday.datum.getMonth() + 1
+  ).padStart(2, "0");
+  const tag = String(
+    naechsterMatchday.datum.getDate()
+  ).padStart(2, "0");
 
-    document.getElementById("date").value =
-      `${jahr}-${monat}-${tag}`;
+  // Datum übernehmen
+  document.getElementById("date").value =
+    `${jahr}-${monat}-${tag}`;
 
-    document.getElementById("type").value =
-      naechsterMatchday.uid.startsWith("tournament.")
-        ? "tournament"
-        : "single";
+  // Einzelspiel oder Turnier übernehmen
+  document.getElementById("type").value =
+    naechsterMatchday.uid.startsWith("tournament.")
+      ? "tournament"
+      : "single";
 
-    document.getElementById("type").dispatchEvent(
-      new Event("change", { bubbles: true })
-    );
-button.onclick
-    alert(
-      "Spieltag übernommen. Bitte nur noch den Anpfiff ergänzen."
-    );
-  };
+  document.getElementById("type").dispatchEvent(
+    new Event("change", { bubbles: true })
+  );
+
+  // SpielerPlus-Startzeit = Treffpunkt
+  const treffpunkt =
+    String(naechsterMatchday.datum.getHours()).padStart(2, "0") +
+    ":" +
+    String(naechsterMatchday.datum.getMinutes()).padStart(2, "0");
+
+  document.getElementById("meet").value = treffpunkt;
+
+  alert(
+    "Spieltag übernommen. Bitte nur noch den Anpfiff ergänzen."
+  );
+};
 }
 if (naechsterMatchday) {
   console.log("Nächster Matchday ⚽", naechsterMatchday);
