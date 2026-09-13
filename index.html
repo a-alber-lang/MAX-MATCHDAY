@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAX' MATCHDAY</title>
+<meta name="theme-color" content="#0b1410">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#0b1410;--card:#142119;--card2:#1b2b21;--green:#b9ff3d;--text:#f7faf7;--muted:#aebbb1;--line:#314238;--warn:#ffd166}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#08110d,#132219);color:var(--text)}
+.wrap{max-width:760px;margin:auto;padding:18px 14px 60px}.hero{padding:16px 4px 8px}.kicker{color:var(--green);font-weight:900;letter-spacing:.14em;font-size:12px}
+h1{font-size:34px;margin:4px 0 2px;line-height:1} .sub{color:var(--muted);margin:8px 0 16px}
+.card{background:rgba(20,33,25,.96);border:1px solid var(--line);border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 10px 30px #0004}
+h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.full{grid-column:1/-1}
+label{display:block;color:var(--muted);font-size:12px;font-weight:700;margin:0 0 5px}
+input,select{width:100%;background:#0e1913;color:white;border:1px solid #405347;border-radius:12px;padding:12px;font:inherit}
+button{border:0;border-radius:14px;padding:14px 16px;font-weight:900;font-size:16px;cursor:pointer}
+.primary{width:100%;background:var(--green);color:#102000;margin-top:8px}.ghost{background:#26372c;color:white;font-size:13px;padding:9px 12px}
+.timeline{position:relative;margin-top:4px}.item{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.time{font-size:17px;font-weight:900;color:var(--green)}.what{font-weight:850}.detail{color:var(--muted);font-size:13px;margin-top:3px;line-height:1.35}
+.badge{display:inline-block;background:#26372c;color:#dce7df;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;margin:3px 4px 3px 0}
+.note{border-left:3px solid var(--warn);padding-left:10px;color:#e9e1c9;font-size:13px;line-height:1.4}
+.goals input{margin:5px 0}.footer{text-align:center;color:#75847a;font-size:11px;margin-top:20px}
+.hide{display:none}@media(max-width:560px){.grid{grid-template-columns:1fr}.full{grid-column:auto}h1{font-size:30px}}
+@media print{body{background:white;color:black}.wrap{max-width:none}.card{box-shadow:none;border:1px solid #bbb;background:white;color:black}.hero .sub,.detail,label,.footer{color:#555}.time,.kicker{color:#235d2f}input,select{color:black;background:white}.primary,.ghost{display:none}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">⚽ DEIN SPIEL. DEIN PLAN.</div>
+    <h1>MAX' MATCHDAY</h1>
+    <div class="sub">Spieltag eingeben. Plan bekommen. Kopf frei fürs Fußballspielen.</div>
+  </div>
+
+  <div class="card">
+    <h2>1 · Was steht an?</h2>
+    <div class="grid">
+      <div><label>Datum</label><input id="date" type="date"></div>
+      <div><label>Art</label><select id="type"><option value="single">⚽ Einzelspiel</option><option value="tournament">🏆 Turnier / Spieltag</option></select></div>
+      <div><label>Erster Anpfiff</label><input id="kickoff" type="time" value="13:30"></div>
+      <div><label>Treffpunkt / Abfahrt</label><input id="meet" type="time" value="12:15"></div>
+      <div><label>Fahrtzeit ab Treffpunkt (Min.)</label><input id="travel" type="number" min="0" value="20"></div>
+      <div><label>Wann musst du zuhause los? (Min. vorher)</label><input id="homeTravel" type="number" min="0" value="10"></div>
+      <div><label>Spielformat</label>
+        <select id="format">
+          <option value="single">1 × Spielzeit</option>
+          <option value="3x30">3 × 30 Minuten</option>
+          <option value="custom">Mehrere Spielabschnitte</option>
+        </select>
+      </div>
+      <div><label>Minuten pro Abschnitt</label><input id="duration" type="number" min="5" value="60"></div>
+      <div id="periodsBox"><label>Anzahl Abschnitte</label><input id="periods" type="number" min="1" value="1"></div>
+      <div id="pauseBox"><label>Pause zwischen Abschnitten (Min.)</label><input id="pause" type="number" min="1" value="10"></div>
+      <div id="gamesBox"><label>Anzahl Spiele am Turniertag</label><input id="games" type="number" min="1" value="1"></div>
+      <div id="endBox" class="hide"><label>Turnier endet ungefähr</label><input id="end" type="time" value="17:00"></div>
+      <div><label>Frühstück braucht Max (Min.)</label><input id="breakfastDur" type="number" min="10" value="20"></div>
+      <div><label>Schlafziel (Stunden)</label><input id="sleepHours" type="number" min="9" max="12" step="0.5" value="10"></div>
+      <div class="full"><label>Besonderheit</label><select id="weather"><option value="normal">Normaler Tag</option><option value="hot">☀️ Warm / heiß</option><option value="cold">🌧️ Kalt / nass</option></select></div>
+    </div>
+    <button class="primary" onclick="buildPlan()">MEINEN SPIELTAG BAUEN →</button>
+  </div>
+
+  <div id="result" class="hide">
+    <div class="card">
+      <h2>2 · Dein Matchday-Plan</h2>
+      <div id="summary"></div>
+      <div id="timeline" class="timeline"></div>
+    </div>
+
+    <div class="card">
+      <h2>🎒 Das kommt heute mit</h2>
+      <div id="bag"></div>
+    </div>
+
+    <div class="card goals">
+      <h2>🎯 Meine 3 Ziele</h2>
+      <input placeholder="1 · z. B. erster Kontakt sauber">
+      <input placeholder="2 · z. B. linken Fuß bewusst benutzen">
+      <input placeholder="3 · z. B. nach Ballverlust sofort reagieren">
+    </div>
+
+    <div class="card goals">
+      <h2>Nach dem Spiel</h2>
+      <label>Das lief heute gut:</label><input placeholder="...">
+      <label style="margin-top:9px">Das nehme ich ins nächste Spiel mit:</label><input placeholder="...">
+    </div>
+    <button class="ghost" onclick="window.print()">🖨️ Plan drucken</button>
+  </div>
+  <div class="footer">Für Max · Matchday Routine · Schlaf geht bei sehr frühen Spielen vor starren Zeitregeln.</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+function mins(t){let [h,m]=t.split(':').map(Number);return h*60+m}
+function clock(n){n=(n+1440)%1440;return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+function item(t,w,d){return `<div class="item"><div class="time">${t}</div><div><div class="what">${w}</div><div class="detail">${d}</div></div></div>`}
+function save(){
+ ['type','format','kickoff','meet','travel','homeTravel','duration','periods','pause','games','end','breakfastDur','sleepHours','weather'].forEach(x=>localStorage.setItem('max_'+x,$(x).value))
+}
+function load(){
+ let d=new Date(); $('date').value=d.toISOString().slice(0,10);
+ ['type','format','kickoff','meet','travel','homeTravel','duration','periods','pause','games','end','breakfastDur','sleepHours','weather'].forEach(x=>{let v=localStorage.getItem('max_'+x);if(v!==null)$(x).value=v});
+ toggleType()
+}
+function toggleFormat(){
+ let f=$('format').value;
+ if(f==='3x30'){ $('duration').value=30; $('periods').value=3; }
+ if(f==='single'){ $('periods').value=1; }
+ $('periodsBox').classList.toggle('hide',f==='single');
+ $('pauseBox').classList.toggle('hide',f==='single');
+}
+function toggleType(){
+ let tour=$('type').value==='tournament';
+ $('endBox').classList.toggle('hide',!tour); $('gamesBox').classList.toggle('hide',!tour);
+ toggleFormat();
+}
+$('type').addEventListener('change',toggleType);
+$('format').addEventListener('change',toggleFormat);
+
+function buildPlan(){
+ save();
+ let ko=mins($('kickoff').value), meet=mins($('meet').value), homeTravel=+$('homeTravel').value||0;
+ let leave=meet-homeTravel, tour=$('type').value==='tournament', games=+$('games').value||1, dur=+$('duration').value||60, periods=+$('periods').value||1, pause=+$('pause').value||10;
+ let veryEarly=ko<600 || meet<540;
+ // Normal target: wake ~4.5h before KO, but never force extreme wake-ups.
+ let wake=veryEarly ? Math.max(ko-150, meet-105) : Math.min(ko-270, meet-210);
+ // If calculated wake is after leaving, force sensible prep window.
+ wake=Math.min(wake,leave-60);
+ let breakfast=wake+15, activate=wake+5, bagcheck=leave-35;
+ let snack=ko-120;
+ let warm=ko-50;
+ let tl='';
+ let sleepHours=+$('sleepHours').value||10;
+ let lightsOut=wake-Math.round(sleepHours*60);
+ let bed=lightsOut-15, windDown=lightsOut-45;
+ tl+=item('VORABEND','🌙 SCHLAF VORBEREITEN',`${clock(windDown)} runterfahren · ${clock(bed)} ins Bett · ${clock(lightsOut)} Licht aus · Ziel: ${sleepHours} Std. Schlaf.`);
+ tl+=item(clock(wake),'AUFSTEHEN','Wasser · Tageslicht · anziehen · nicht wieder hinlegen.');
+ tl+=item(clock(activate),'KÖRPER ANSCHALTEN','5–10 Min. locker bewegen. Kein Training, keine Sprints.');
+ tl+=item(clock(breakfast),'FRÜHSTÜCK', veryEarly?'Leicht und gut verträglich: Brot/Toast + Honig/Marmelade, Banane, Wasser. Schlaf war heute wichtiger als ein riesiges Frühstück.':'Kohlenhydrate + etwas Eiweiß: Brot/Toast, Honig/Marmelade, Banane, Joghurt/Skyr, Wasser.');
+ if(!veryEarly && bagcheck>wake+60) tl+=item(clock(wake+75),'ENTSPANNEN','Freizeit okay. Normal bewegen, aber kein Toben und nicht wieder ins Bett.');
+ tl+=item(clock(bagcheck),'TASCHE CHECKEN','Schuhe · Schienbeinschoner · Kleidung · Trinkflasche · Essen.');
+ tl+=item(clock(leave),'ZUHAUSE LOS','Ruhig los. Kein Stress auf den letzten Metern.');
+ tl+=item(clock(meet),'TREFFPUNKT','Mannschaft treffen · ab jetzt Matchday-Modus.');
+ if(snack>meet+20) tl+=item(clock(snack),'KLEINER SNACK','Nur wenn nötig: Banane, Toast/Brötchen, Salzbrezeln. Leicht bleiben.');
+ tl+=item(clock(warm),'WARM-UP','Mannschaft · Trainer · konzentriert aufwärmen.');
+ tl+=item(clock(ko),'ANPFIFF 🔥','Einfach starten · wach · mutig · nach Fehlern sofort weitermachen.');
+ if(!tour && periods>1){
+   let cursor=ko;
+   for(let i=1;i<=periods;i++){
+     let endPeriod=cursor+dur;
+     tl+=item(clock(cursor)+'–'+clock(endPeriod),`ABSCHNITT ${i} · ${dur} MIN.`, i===1?'Voll da sein.': 'Wieder frisch starten · Fokus sofort zurück.');
+     if(i<periods){
+       tl+=item(clock(endPeriod),`KURZE PAUSE · ca. ${pause} MIN.`,`Trinken · ruhig bleiben · Trainer zuhören · nicht auskühlen.`);
+       cursor=endPeriod+pause;
+     }
+   }
+ }
+ let finish = tour ? mins($('end').value) : ko + (dur*periods) + (pause*Math.max(0,periods-1));
+ if(tour){
+   tl+=item('ZWISCHEN<br>SPIELEN','ENERGIE HALTEN','Kleine Portionen essen, regelmäßig trinken, warm bleiben. Nicht jedes Mal vollstopfen.');
+   tl+=item(clock(finish),'TURNIERENDE','Trinken · runterkommen · danach Kohlenhydrate + Eiweiß.');
+ } else {
+   tl+=item(clock(finish),'ABPFIFF','5–10 Min. runterkommen · trinken · Mannschaft.');
+ }
+ tl+=item(clock(finish+30),'REGENERATION','Innerhalb ca. 60 Min.: z. B. Banane + Joghurt, belegtes Brötchen oder Kakao + Banane.');
+ tl+=item('ABENDS','AUFTANKEN','Normale Mahlzeit · ausreichend trinken · rechtzeitig schlafen.');
+
+ $('timeline').innerHTML=tl;
+ let fmt = periods>1 ? `${periods} × ${dur} Min. + ${pause} Min. Pausen` : `${dur} Min.`; let tags = `<span class="badge">${tour?'🏆 Turnier / Spieltag':'⚽ Einzelspiel'}</span><span class="badge">${fmt}</span><span class="badge">Anpfiff ${$('kickoff').value}</span><span class="badge">Treffpunkt ${$('meet').value}</span>`;
+ let note=veryEarly?`<p class="note"><b>Früher Spieltag:</b> Heute wird nicht künstlich 4 Stunden vor dem Spiel aufgestanden. Schlaf hat Priorität. Frühstück kleiner halten und Verpflegung mitnehmen.</p>`:'';
+ $('summary').innerHTML=tags+note;
+
+ let bag=['💧 Wasser','🍌 2 Bananen','🥖 Brot/Brötchen oder Toast','🥨 Salzbrezeln','👟 Fußballschuhe','🛡️ Schienbeinschoner','👕 Wechselshirt / trockene Sachen'];
+ if(tour){bag.push('🥪 Extra-Verpflegung für den ganzen Tag');bag.push('🧥 Warme Jacke für Spielpausen')}
+ if($('weather').value==='hot'){bag.push('☀️ Extra Wasser + Sonnenschutz')}
+ if($('weather').value==='cold'){bag.push('🌧️ Regen-/Warmhaltejacke + trockene Socken')}
+ $('bag').innerHTML=bag.map(x=>`<span class="badge">${x}</span>`).join('');
+ $('result').classList.remove('hide');
+ $('result').scrollIntoView({behavior:'smooth'});
+}
+load();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
