@@ -37,7 +37,17 @@ button{border:0;border-radius:14px;padding:14px 16px;font-weight:900;font-size:1
     <h1>MAX' MATCHDAY</h1>
     <div class="sub">Spieltag eingeben. Plan bekommen. Kopf frei fürs Fußballspielen.</div>
   </div>
+<div class="card" id="spielerPlusBox" style="display:none;">
+  <h2>⚽ Nächster Matchday</h2>
 
+  <div id="spielerPlusInfo">
+    SpielerPlus wird geladen …
+  </div>
+
+  <button type="button" id="spielerPlusUebernehmen">
+    Diesen Spieltag übernehmen
+  </button>
+</div>
   <div class="card">
     <h2>1 · Was steht an?</h2>
     <div class="grid">
@@ -263,7 +273,58 @@ const naechsterMatchday = kommendeTermine.find(event => {
 });
 
 window.naechsterMatchday = naechsterMatchday;
+if (naechsterMatchday) {
+  const box = document.getElementById("spielerPlusBox");
+  const info = document.getElementById("spielerPlusInfo");
+  const button = document.getElementById("spielerPlusUebernehmen");
 
+  const datumAnzeige = naechsterMatchday.datum.toLocaleDateString("de-DE", {
+    weekday: "long",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  });
+
+  const zeitAnzeige = naechsterMatchday.datum.toLocaleTimeString("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  const ort = naechsterMatchday.location
+    ? naechsterMatchday.location.replace(/\\,/g, ",")
+    : "Kein Ort eingetragen";
+
+  info.innerHTML = `
+    <p><strong>${datumAnzeige}</strong></p>
+    <p>${naechsterMatchday.title}</p>
+    <p>🕒 ${zeitAnzeige} Uhr</p>
+    <p>📍 ${ort}</p>
+  `;
+
+  box.style.display = "block";
+
+  button.onclick = function () {
+    const jahr = naechsterMatchday.datum.getFullYear();
+    const monat = String(naechsterMatchday.datum.getMonth() + 1).padStart(2, "0");
+    const tag = String(naechsterMatchday.datum.getDate()).padStart(2, "0");
+
+    document.getElementById("date").value =
+      `${jahr}-${monat}-${tag}`;
+
+    document.getElementById("type").value =
+      naechsterMatchday.uid.startsWith("tournament.")
+        ? "tournament"
+        : "single";
+
+    document.getElementById("type").dispatchEvent(
+      new Event("change", { bubbles: true })
+    );
+
+    alert(
+      "Spieltag übernommen. Bitte Anpfiff und Treffpunkt noch prüfen."
+    );
+  };
+}
 if (naechsterMatchday) {
   console.log("Nächster Matchday ⚽", naechsterMatchday);
 
