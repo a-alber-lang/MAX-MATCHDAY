@@ -234,7 +234,37 @@ async function ladeSpielerPlusTermine() {
 
     // Für die nächsten Schritte global verfügbar machen
     window.spielerPlusTermine = kommendeTermine;
+// Nächsten Matchday finden: Spiel oder Turnier
+const naechsterMatchday = kommendeTermine.find(event =>
+  event.uid.startsWith("game.") ||
+  event.uid.startsWith("tournament.")
+);
 
+window.naechsterMatchday = naechsterMatchday;
+
+if (naechsterMatchday) {
+  console.log("Nächster Matchday ⚽", naechsterMatchday);
+
+  const datumText = naechsterMatchday.datum.toLocaleDateString("de-DE", {
+    weekday: "long",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  });
+
+  const uhrzeitText = naechsterMatchday.datum.toLocaleTimeString("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  console.log(
+    "MATCHDAY:",
+    datumText,
+    uhrzeitText,
+    naechsterMatchday.title,
+    naechsterMatchday.location
+  );
+}
   } catch (error) {
     console.error("SpielerPlus-Fehler:", error);
   }
