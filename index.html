@@ -234,11 +234,33 @@ async function ladeSpielerPlusTermine() {
 
     // Für die nächsten Schritte global verfügbar machen
     window.spielerPlusTermine = kommendeTermine;
-// Nächsten Matchday finden: Spiel oder Turnier
-const naechsterMatchday = kommendeTermine.find(event =>
-  event.uid.startsWith("game.") ||
-  event.uid.startsWith("tournament.")
-);
+// Nächsten noch nicht beendeten Matchday finden
+const jetzt = new Date();
+
+const naechsterMatchday = kommendeTermine.find(event => {
+  const istMatchday =
+    event.uid.startsWith("game.") ||
+    event.uid.startsWith("tournament.");
+
+  if (!istMatchday) return false;
+
+  // Endzeit aus SpielerPlus auslesen
+  const wert = event.end;
+
+  if (!wert) {
+    return event.datum >= jetzt;
+  }
+
+  const jahr = Number(wert.slice(0, 4));
+  const monat = Number(wert.slice(4, 6)) - 1;
+  const tag = Number(wert.slice(6, 8));
+  const stunde = Number(wert.slice(9, 11) || 0);
+  const minute = Number(wert.slice(11, 13) || 0);
+
+  const ende = new Date(jahr, monat, tag, stunde, minute);
+
+  return ende > jetzt;
+});
 
 window.naechsterMatchday = naechsterMatchday;
 
